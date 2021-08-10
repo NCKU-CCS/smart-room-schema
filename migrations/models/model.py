@@ -41,7 +41,7 @@ class MeterData(BASE, BaseMixin):
     voltage: float = Column(Float(), comment="V")
     current: float = Column(Float(), comment="A")
     power: float = Column(Float(), comment="W")
-    total_current: float = Column(Float(), comment="kWh")
+    total_consumption: float = Column(Float(), comment="kWh")
     sensor: str = Column(String(), nullable=False, comment="sensor name")
     gateway: str = Column(String(), nullable=False, comment="gateway name")
 
