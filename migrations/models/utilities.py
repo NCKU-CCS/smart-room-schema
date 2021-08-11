@@ -7,8 +7,8 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import text as sa_text
 from sqlalchemy import Column
 import sqlalchemy.types as types
-
 from sqlalchemy.ext.declarative import declarative_base
+from loguru import logger
 
 BASE = declarative_base()
 

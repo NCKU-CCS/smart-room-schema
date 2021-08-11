@@ -46,7 +46,7 @@ cd migrations/ && pipenv run alembic downgrade -<number> / <sha_key>
 * Genrate migration
 ```
 cd migrations/ && pipenv run alembic revision --autogenerate -m "Migrate message"
-cd migrations/ && pipenv run alembic upgrade
+cd migrations/ && pipenv run alembic upgrade head
 ```
 
 ## Cheatsheets
