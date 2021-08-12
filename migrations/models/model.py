@@ -80,4 +80,4 @@ class User(BASE, BaseMixin):
 class PirRecords(BASE, BaseSerialId):
     __tablename__ = "pir_records"
     device_id: str = Column(VARCHAR())
-    status: int = Column(Interger())
+    status: int = Column(Integer())
