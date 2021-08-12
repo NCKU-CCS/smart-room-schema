@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from sqlalchemy.orm import Session
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import text as sa_text
-from sqlalchemy import Column, BigInteger
+from sqlalchemy import Column, BigInteger, TIMESTAMP
 import sqlalchemy.types as types
 from sqlalchemy.ext.declarative import declarative_base
 from loguru import logger
@@ -76,7 +76,7 @@ class BaseMixin:
 @dataclass
 class BaseSerialId:
     record_id: int = Column(BigInteger, primary_key=True)
-    created: datetime = Column(UTCDatetime, default=datetime.now)
+    created: datetime = Column(TIMESTAMP, default=datetime.utcnow)
 
     @db_handler
     def add(self, session: Session):
