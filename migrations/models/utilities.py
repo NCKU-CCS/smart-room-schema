@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from sqlalchemy.orm import Session
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import text as sa_text
-from sqlalchemy import Column
+from sqlalchemy import Column, BigInteger
 import sqlalchemy.types as types
 from sqlalchemy.ext.declarative import declarative_base
 from loguru import logger
@@ -40,14 +40,42 @@ def db_handler(func):
         except Exception as err:
             logger.error(f"DB Operation Failed.\nError: {err}")
             session.rollback()
+
     return applicator
 
 
 @dataclass
 class BaseMixin:
     uuid: UUID = Column(
-        UUID2STR, primary_key=True, unique=True, nullable=False, server_default=sa_text("uuid_generate_v4()")
+        UUID2STR,
+        primary_key=True,
+        unique=True,
+        nullable=False,
+        server_default=sa_text("uuid_generate_v4()"),
     )
+    created: datetime = Column(UTCDatetime, default=datetime.now)
+
+    @db_handler
+    def add(self, session: Session):
+        session.add(self)
+        session.commit()
+
+    # pylint: disable=R0201
+    @db_handler
+    def update(self, session: Session):
+        session.commit()
+
+    # pylint: enable=R0201
+
+    @db_handler
+    def delete(self, session: Session):
+        session.delete(self)
+        session.commit()
+
+
+@dataclass
+class BaseSerialId:
+    record_id: int = Column(BigInteger, primary_key=True)
     created: datetime = Column(UTCDatetime, default=datetime.now)
 
     @db_handler

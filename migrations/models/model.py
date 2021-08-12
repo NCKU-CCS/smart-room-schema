@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 import secrets
 
-from sqlalchemy import Column, String, Float
+from sqlalchemy import Column, String, Float, Integer, VARCHAR
 from sqlalchemy.schema import UniqueConstraint
 
-from .utilities import BASE, BaseMixin
+from .utilities import BASE, BaseMixin, BaseSerialId
 
 
 @dataclass
@@ -31,7 +31,9 @@ class Device(BASE, BaseMixin):
 class Gateway(BASE, BaseMixin):
     __tablename__ = "gateway"
     name: str = Column(String(), unique=True, nullable=False)
-    token: secrets.token_hex = Column(String(), unique=True, nullable=False, default=secrets.token_hex())
+    token: secrets.token_hex = Column(
+        String(), unique=True, nullable=False, default=secrets.token_hex()
+    )
 
 
 @dataclass
@@ -72,3 +74,10 @@ class User(BASE, BaseMixin):
     account: str = Column(String(), unique=True, nullable=False)
     password: str = Column(String(), unique=False, nullable=False)
     token: secrets.token_hex = Column(String(), unique=True, nullable=False)
+
+
+@dataclass
+class PirRecords(BASE, BaseSerialId):
+    __tablename__ = "pir_records"
+    device_id: str = Column(VARCHAR())
+    status: int = Column(Interger())

@@ -18,7 +18,7 @@ config = context.config
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
 fileConfig(config.config_file_name)
-logger = logging.getLogger('alembic.env')
+logger = logging.getLogger("alembic.env")
 
 # add your model's MetaData object here
 # for 'autogenerate' support
@@ -26,7 +26,7 @@ logger = logging.getLogger('alembic.env')
 # target_metadata = mymodel.Base.metadata
 
 # Add model related path for alembic to recognize where to find models
-sys.path.append('./')
+sys.path.append("./")
 from models.utilities import BASE
 from models import *
 
@@ -52,10 +52,7 @@ def run_migrations_offline():
     """
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
-        url=url,
-        target_metadata=target_metadata,
-        literal_binds=True,
-        compare_type=True
+        url=url, target_metadata=target_metadata, literal_binds=True, compare_type=True
     )
 
     with context.begin_transaction():
@@ -75,14 +72,12 @@ def run_migrations_online():
         alembic_config.update({"sqlalchemy.url": os.environ.get("DB_URL")})
 
     connectable = engine_from_config(
-        alembic_config, prefix='sqlalchemy.', poolclass=pool.NullPool
+        alembic_config, prefix="sqlalchemy.", poolclass=pool.NullPool
     )
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection,
-            target_metadata=target_metadata,
-            compare_type=True,
+            connection=connection, target_metadata=target_metadata, compare_type=True
         )
 
         with context.begin_transaction():
