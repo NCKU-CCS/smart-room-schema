@@ -1,5 +1,5 @@
 """Using __all__ to setup expose model/functions"""
-from .model import ControlRecord, Device, Gateway, MeterData, Sensor, SensorData, User, PirRecords
+from .model import ControlRecord, Device, Gateway, MeterData, Sensor, SensorData, User, PirRecords, Weather
 
 
 __all__ = [
@@ -11,4 +11,5 @@ __all__ = [
     "SensorData",
     "User",
     "PirRecords",
+    "Weather"
 ]

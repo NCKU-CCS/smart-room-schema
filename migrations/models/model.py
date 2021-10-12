@@ -1,11 +1,10 @@
 from dataclasses import dataclass
 import secrets
 
-from sqlalchemy import Column, String, Float, Integer, VARCHAR
+from sqlalchemy import Column, String, Float, Integer, VARCHAR, TIMESTAMP
 from sqlalchemy.schema import UniqueConstraint
 
 from .utilities import BASE, BaseMixin, BaseSerialId
-
 
 @dataclass
 class ControlRecord(BASE, BaseMixin):
@@ -81,3 +80,11 @@ class PirRecords(BASE, BaseSerialId):
     __tablename__ = "pir_records"
     device_id: str = Column(VARCHAR())
     status: int = Column(Integer())
+
+@dataclass
+class Weather(BASE):
+    __tablename__ = 'weather'
+    area = Column(String, primary_key=True)
+    time = Column(TIMESTAMP, primary_key=True)
+    humidity = Column(Float)
+    temperature = Column(Float)
